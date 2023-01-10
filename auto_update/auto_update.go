@@ -28,7 +28,7 @@ func main() {
 }
 
 func syncAgent() {
-	err := exec.Command("bash", "-c", "aws s3 sync s3://private-cloudwatch-agent-integration-test/release/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm .")
+	err := exec.Command("bash", "-c", "/usr/local/bin/aws s3 sync s3://private-cloudwatch-agent-integration-test/release/amazon_linux/amd64/latest .")
 	if err != nil {
 		log.Printf("Failed to download agent err %v", err)
 	}
