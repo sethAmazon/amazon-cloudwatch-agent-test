@@ -35,7 +35,11 @@ func syncAgent() {
 }
 
 func installAgent() {
-	output, err := exec.Command("bash", "-c", "sudo yum install -y amazon-cloudwatch-agent.rpm").Output()
+	output, err := exec.Command("bash", "-c", "sudo yum remove -y amazon-cloudwatch-agent.rpm").Output()
+	if err != nil {
+		log.Printf("Failed to install agent err %v output %v", err, output)
+	}
+	output, err = exec.Command("bash", "-c", "sudo yum install -y amazon-cloudwatch-agent.rpm").Output()
 	if err != nil {
 		log.Printf("Failed to install agent err %v output %v", err, output)
 	}
