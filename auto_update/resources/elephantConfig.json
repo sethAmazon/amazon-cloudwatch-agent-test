@@ -5,7 +5,7 @@
     "debug": false
   },
   "metrics": {
-    "namespace": "InstanceMetrics",
+    "namespace": "ElephantDemoCloudWatchAgentMetrics",
     "append_dimensions": {
       "AutoScalingGroupName": "${aws:AutoScalingGroupName}",
       "InstanceId": "${aws:InstanceId}"
