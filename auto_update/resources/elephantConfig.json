@@ -7,8 +7,8 @@
   "metrics": {
     "namespace": "InstanceMetrics",
     "append_dimensions": {
-      "AutoScalingGroupName": "${!aws:AutoScalingGroupName}",
-      "InstanceId": "${!aws:InstanceId}"
+      "AutoScalingGroupName": "${aws:AutoScalingGroupName}",
+      "InstanceId": "${aws:InstanceId}"
     },
     "aggregation_dimensions": [
       [],
