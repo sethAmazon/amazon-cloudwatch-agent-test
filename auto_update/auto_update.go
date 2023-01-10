@@ -28,16 +28,16 @@ func main() {
 }
 
 func syncAgent() {
-	err := exec.Command("bash", "-c", "/usr/local/bin/aws s3 sync s3://private-cloudwatch-agent-integration-test/release/amazon_linux/amd64/latest .")
+	output, err := exec.Command("bash", "-c", "/usr/local/bin/aws s3 sync s3://private-cloudwatch-agent-integration-test/release/amazon_linux/amd64/latest .").Output()
 	if err != nil {
-		log.Printf("Failed to download agent err %v", err)
+		log.Printf("Failed to download agent err %v output %v", err, output)
 	}
 }
 
 func installAgent() {
-	err := exec.Command("bash", "-c", "sudo yum install -y amazon-cloudwatch-agent.rpm")
+	output, err := exec.Command("bash", "-c", "sudo yum install -y amazon-cloudwatch-agent.rpm").Output()
 	if err != nil {
-		log.Printf("Failed to install agent err %v", err)
+		log.Printf("Failed to install agent err %v output %v", err, output)
 	}
 }
 
