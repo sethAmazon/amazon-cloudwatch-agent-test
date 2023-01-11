@@ -99,6 +99,26 @@
     }
   },
   "logs": {
+    "log_stream_name": "UncategorizedLogStream",
+    "metrics_collected": {
+      "prometheus": {
+        "log_group_name": "${VarElephantCloudWatchAgentLogGroupName}",
+        "prometheus_config_path": "${BUILD_prometheusConfigPath}",
+        "emf_processor": {
+          "metric_declaration_dedup": true,
+          "metric_namespace": "ElephantContainer/FluentBit",
+          "metric_declaration": [
+            {
+              "source_labels":["name"],
+              "dimensions":[
+                ["name"]
+              ],
+              "metric_selectors": ["^.*$"]
+            }
+          ]
+        }
+      }
+    },
     "logs_collected": {
       "files": {
         "collect_list": [
