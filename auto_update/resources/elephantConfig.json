@@ -102,11 +102,11 @@
     "log_stream_name": "UncategorizedLogStream",
     "metrics_collected": {
       "prometheus": {
-        "log_group_name": "${VarElephantCloudWatchAgentLogGroupName}",
-        "prometheus_config_path": "${BUILD_prometheusConfigPath}",
+        "log_group_name": "ElephantDemoCloudWatchAgentLogGroup",
+        "prometheus_config_path": "prometheus_config.yaml",
         "emf_processor": {
           "metric_declaration_dedup": true,
-          "metric_namespace": "ElephantContainer/FluentBit",
+          "metric_namespace": "ElephantDemoContainer/FluentBit",
           "metric_declaration": [
             {
               "source_labels":["name"],

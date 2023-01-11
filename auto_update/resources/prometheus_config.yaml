@@ -1,0 +1,16 @@
+global:
+  scrape_interval: 1m
+  scrape_timeout: 15s
+  evaluation_interval: 15s
+
+# A scrape configuration contains exactly one endpoint to scrape:
+scrape_configs:
+  - job_name: "docker-containers"
+    metrics_path: /api/v1/metrics/prometheus
+    docker_sd_configs:
+      - host: unix:///var/run/docker.sock # You can also use http/https to connect to the Docker daemon.
+        port: 2020
+        filters:
+          - name: "label"
+            values:
+              - ECS_PROMETHEUS_JOB_NAME
