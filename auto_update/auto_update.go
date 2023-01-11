@@ -9,8 +9,10 @@ import (
 )
 
 const (
-	configOutputPath = "/opt/aws/amazon-cloudwatch-agent/bin/config.json"
-	configInput      = "resources/elephantConfig.json"
+	configOutputPath           = "/opt/aws/amazon-cloudwatch-agent/bin/config.json"
+	prometheusConfigOutputPath = "/opt/aws/amazon-cloudwatch-agent/bin/prometheusConfig.yaml"
+	configInput                = "resources/elephantConfig.json"
+	prometheusConfigInput      = "resources/prometheusConfig.yaml"
 )
 
 func main() {
@@ -18,6 +20,7 @@ func main() {
 		syncAgent()
 		installAgent()
 		CopyFile(configInput, configOutputPath)
+		CopyFile(prometheusConfigInput, prometheusConfigOutputPath)
 		err := StartAgent(configOutputPath, true)
 		if err != nil {
 			log.Printf("Err starting agent %v", err)
