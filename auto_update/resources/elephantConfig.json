@@ -109,9 +109,9 @@
           "metric_namespace": "ElephantDemoContainer/FluentBit",
           "metric_declaration": [
             {
-              "source_labels":["name"],
+              "source_labels":["host"],
               "dimensions":[
-                ["name"]
+                ["host"]
               ],
               "metric_selectors": ["^.*$"]
             }
