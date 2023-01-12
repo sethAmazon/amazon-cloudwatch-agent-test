@@ -105,17 +105,7 @@
         "log_group_name": "ElephantDemoCloudWatchAgentPrometheusLogGroup",
         "prometheus_config_path": "/opt/aws/amazon-cloudwatch-agent/bin/prometheusConfig.yaml",
         "emf_processor": {
-          "metric_declaration_dedup": true,
-          "metric_namespace": "ElephantDemoContainer/FluentBit",
-          "metric_declaration": [
-            {
-              "source_labels":["name"],
-              "dimensions":[
-                ["name"]
-              ],
-              "metric_selectors": ["^.*$"]
-            }
-          ]
+          "metric_namespace": "ElephantDemoContainer/FluentBit"
         }
       }
     },
