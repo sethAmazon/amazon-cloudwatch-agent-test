@@ -113,7 +113,7 @@
               "dimensions":[
                 ["name"]
               ],
-              "metric_selectors": ["^node_cpu_guest_seconds_total$"]
+              "metric_selectors": ["^.*$"]
             }
           ]
         }
