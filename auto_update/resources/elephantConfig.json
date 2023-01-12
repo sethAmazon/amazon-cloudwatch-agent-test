@@ -102,7 +102,7 @@
     "log_stream_name": "UncategorizedLogStream",
     "metrics_collected": {
       "prometheus": {
-        "log_group_name": "ElephantDemoCloudWatchAgentLogGroup",
+        "log_group_name": "ElephantDemoCloudWatchAgentPrometheusLogGroup",
         "prometheus_config_path": "/opt/aws/amazon-cloudwatch-agent/bin/prometheusConfig.yaml",
         "emf_processor": {
           "metric_declaration_dedup": true,
