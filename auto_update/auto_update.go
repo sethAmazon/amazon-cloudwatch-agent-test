@@ -12,7 +12,7 @@ const (
 	configOutputPath           = "/opt/aws/amazon-cloudwatch-agent/bin/config.json"
 	prometheusConfigOutputPath = "/opt/aws/amazon-cloudwatch-agent/bin/prometheusConfig.yaml"
 	configInput                = "resources/elephantConfig.json"
-	prometheusConfigInput      = "resources/prometheusConfig.yaml"
+	prometheusConfigInput      = "resources/prometheus.yaml"
 )
 
 func main() {
