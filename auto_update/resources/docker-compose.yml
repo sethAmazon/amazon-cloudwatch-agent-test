@@ -13,31 +13,6 @@ services:
       - /proc:/host/proc
       - /sys:/host/sys
 
-  grafana:
-    image: grafana/grafana:latest
-    depends_on:
-      - prometheus
-    ports:
-      - 3000:3000
-    volumes:
-      - ./config/grafana/provisioning:/etc/grafana/provisioning
-    networks:
-      - exporter-network
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-
-  prometheus:
-    container_name: prometheus
-    image: prom/prometheus:latest
-    volumes:
-      - ./prometheus.yaml:/etc/prometheus/prometheus.yaml
-    command:
-      - --config.file=/etc/prometheus/prometheus.yaml
-    networks:
-      - exporter-network
-    ports:
-      - 9090:9090
-
 networks:
   exporter-network:
     driver: bridge
