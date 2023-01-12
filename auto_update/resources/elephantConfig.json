@@ -112,7 +112,7 @@
           },
           "metric_declaration": [
             {
-              "source_labels":["host"],
+              "source_labels":["job","host"],
               "dimensions":[
                 ["host"]
               ],

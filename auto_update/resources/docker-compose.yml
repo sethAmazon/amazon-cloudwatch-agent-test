@@ -4,7 +4,7 @@ services:
   fluentbit:
     image: fluentbitdev/fluent-bit:x86_64-master
     container_name: fluentbit
-    command: /fluent-bit/bin/fluent-bit -i node_exporter_metrics -p path.procfs=/host/proc -p path.sysfs=/host/sys -o prometheus_exporter -p "add_label=host fluentbit" -f 1
+    command: /fluent-bit/bin/fluent-bit -i node_exporter_metrics -p path.procfs=/host/proc -p path.sysfs=/host/sys -o prometheus_exporter -p "add_label=host,name fluentbit" -f 1
     ports:
       - 2021:2021
     networks:
