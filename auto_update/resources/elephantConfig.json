@@ -107,12 +107,9 @@
         "emf_processor": {
           "metric_declaration_dedup": true,
           "metric_namespace": "ElephantDemoContainer/FluentBit",
-          "metric_unit":{
-            "node_memory_Active_anon_bytes": "Count"
-          },
           "metric_declaration": [
             {
-              "source_labels":["job","name"],
+              "source_labels":["name"],
               "dimensions":[
                 ["name"]
               ],
