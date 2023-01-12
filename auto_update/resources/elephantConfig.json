@@ -2,7 +2,7 @@
   "agent": {
     "metrics_collection_interval": 60,
     "logfile": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
-    "debug": false
+    "debug": true
   },
   "metrics": {
     "namespace": "ElephantDemoCloudWatchAgentMetrics",
@@ -113,7 +113,7 @@
               "dimensions":[
                 ["name"]
               ],
-              "metric_selectors": ["^.*$"]
+              "metric_selectors": ["^node_cpu_guest_seconds_total$"]
             }
           ]
         }
