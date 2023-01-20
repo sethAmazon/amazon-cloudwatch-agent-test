@@ -24,30 +24,13 @@ type PrometheusTestRunner struct {
 var _ test_runner.ITestRunner = (*PrometheusTestRunner)(nil)
 
 //go:embed agent_configs/prometheus.yaml
-var prometheusConfig string
 
-const prometheusMetrics = `prometheus_test_untyped{include="yes"} 1
-# TYPE prometheus_test_counter counter
-prometheus_test_counter{include="yes"} 1
-# TYPE prometheus_test_counter_exclude counter
-prometheus_test_counter_exclude{include="no"} 1
-# TYPE prometheus_test_gauge gauge
-prometheus_test_gauge{include="yes"} 500
-# TYPE prometheus_test_summary summary
-prometheus_test_summary_sum{include="yes"} 200
-prometheus_test_summary_count{include="yes"} 50
-prometheus_test_summary{include="yes",quantile="0"} 0.1
-prometheus_test_summary{include="yes",quantile="0.5"} 0.25
-prometheus_test_summary{include="yes",quantile="1"} 5.5
-# TYPE prometheus_test_histogram histogram
-prometheus_test_histogram_sum{include="yes"} 300
-prometheus_test_histogram_count{include="yes"} 75
-prometheus_test_histogram_bucket{include="yes",le="0"} 1
-prometheus_test_histogram_bucket{include="yes",le="0.5"} 2
-prometheus_test_histogram_bucket{include="yes",le="2.5"} 3
-prometheus_test_histogram_bucket{include="yes",le="5"} 4
-prometheus_test_histogram_bucket{include="yes",le="+Inf"} 5
-`
+const (
+	prometheusConfigPathIn   = "resources/prometheus.yaml"
+	prometheusConfigPathOut  = "/opt/aws/amazon-cloudwatch-agent/bin/prometheus_config.yaml"
+	prometheusMetricsPathIn  = "resources/prometheus_metrics.txt"
+	prometheusMetricsPathOut = "/tmp/metrics"
+)
 
 func (t *PrometheusTestRunner) Validate() status.TestGroupResult {
 	metricsToFetch := t.GetMeasuredMetrics()
@@ -71,9 +54,9 @@ func (t *PrometheusTestRunner) GetAgentConfigFileName() string {
 }
 
 func (t *PrometheusTestRunner) SetupBeforeAgentRun() error {
+	common.CopyFile(prometheusConfigPathIn, prometheusConfigPathOut)
+	common.CopyFile(prometheusMetricsPathIn, prometheusMetricsPathOut)
 	startPrometheusCommands := []string{
-		fmt.Sprintf("cat <<EOF | sudo tee /tmp/prometheus_config.yaml\n%s\nEOF", prometheusConfig),
-		fmt.Sprintf("cat <<EOF | sudo tee /tmp/metrics\n%s\nEOF", prometheusMetrics),
 		"sudo python3 -m http.server 8101 --directory /tmp &> /dev/null &",
 	}
 

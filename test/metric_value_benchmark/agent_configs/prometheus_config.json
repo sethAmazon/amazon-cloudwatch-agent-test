@@ -8,7 +8,7 @@
   "logs": {
     "metrics_collected": {
       "prometheus": {
-        "prometheus_config_path": "/tmp/prometheus_config.yaml",
+        "prometheus_config_path": "/opt/aws/amazon-cloudwatch-agent/bin/prometheus_config.yaml",
         "log_group_name": "prometheus_test",
         "emf_processor": {
           "metric_namespace": "MetricValueBenchmarkTest",
