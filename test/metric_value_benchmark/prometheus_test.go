@@ -7,7 +7,6 @@ package metric_value_benchmark
 
 import (
 	_ "embed"
-	"fmt"
 	"github.com/aws/amazon-cloudwatch-agent-test/internal/common"
 	"github.com/aws/amazon-cloudwatch-agent-test/test/metric"
 	"github.com/aws/amazon-cloudwatch-agent-test/test/metric/dimension"
@@ -22,8 +21,6 @@ type PrometheusTestRunner struct {
 }
 
 var _ test_runner.ITestRunner = (*PrometheusTestRunner)(nil)
-
-//go:embed agent_configs/prometheus.yaml
 
 const (
 	prometheusConfigPathIn   = "resources/prometheus.yaml"
