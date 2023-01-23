@@ -26,7 +26,7 @@ locals {
   private_key_content = var.ssh_key_name != "" ? var.ssh_key_value : tls_private_key.ssh_key[0].private_key_pem
 }
 
-resource "aws_instance" "integration-test" {
+resource "aws_spot_instance_request" "integration-test" {
   ami                    = data.aws_ami.latest.id
   instance_type          = var.ec2_instance_type
   key_name               = local.ssh_key_name
@@ -56,10 +56,13 @@ resource "aws_instance" "integration-test" {
       host        = self.public_dns
     }
   }
+}
 
-  tags = {
-    Name = "LocalStackIntegrationTestInstance"
-  }
+resource "aws_ec2_tag" "localstack_ec2_tags" {
+  resource_id = aws_spot_instance_request.integration-test.spot_instance_id
+
+  key = "Name"
+  value = "LocalStackIntegrationTestInstance"
 }
 
 data "aws_ami" "latest" {

@@ -38,21 +38,21 @@ resource "aws_efs_file_system" "efs" {
 
 resource "aws_efs_mount_target" "mount" {
   file_system_id = aws_efs_file_system.efs.id
-  subnet_id = aws_instance.cwagent.subnet_id
+  subnet_id = aws_spot_instance_request.cwagent.subnet_id
   security_groups = [aws_security_group.ec2_security_group.id]
 }
 
 resource "null_resource" "mount_efs" {
   depends_on = [
     aws_efs_mount_target.mount,
-    aws_instance.cwagent
+    aws_spot_instance_request.cwagent
   ]
 
   connection {
     type = "ssh"
     user = var.user
     private_key = local.private_key_content
-    host = aws_instance.cwagent.public_ip
+    host = aws_spot_instance_request.cwagent.public_ip
   }
 
   provisioner "file" {
@@ -74,17 +74,22 @@ resource "null_resource" "mount_efs" {
 #####################################################################
 # Generate EC2 Instance and execute test commands
 #####################################################################
-resource "aws_instance" "cwagent" {
+resource "aws_spot_instance_request" "cwagent" {
   ami                         = data.aws_ami.latest.id
   instance_type               = var.ec2_instance_type
+  wait_for_fulfillment        = true
+  spot_type                   = "one-time"
   key_name                    = local.ssh_key_name
   iam_instance_profile        = aws_iam_instance_profile.cwagent_instance_profile.name
   vpc_security_group_ids      = [aws_security_group.ec2_security_group.id]
   associate_public_ip_address = true
+}
 
-  tags = {
-    Name = "cwagent-integ-test-ec2-${var.test_name}-${random_id.testing_id.hex}"
-  }
+resource "aws_ec2_tag" "cwagent_ec2_tags" {
+  resource_id = aws_spot_instance_request.cwagent.spot_instance_id
+
+  key = "Name"
+  value = "cwagent-integ-test-ec2-${var.test_name}-${random_id.testing_id.hex}"
 }
 
 resource "null_resource" "integration_test" {
@@ -112,7 +117,7 @@ resource "null_resource" "integration_test" {
       type        = "ssh"
       user        = var.user
       private_key = local.private_key_content
-      host        = aws_instance.cwagent.public_ip
+      host        = aws_spot_instance_request.cwagent.public_ip
     }
   }
 
@@ -132,12 +137,12 @@ resource "null_resource" "integration_test" {
       type        = "ssh"
       user        = var.user
       private_key = local.private_key_content
-      host        = aws_instance.cwagent.public_ip
+      host        = aws_spot_instance_request.cwagent.public_ip
     }
   }
 
   depends_on = [
-    aws_instance.cwagent,
+    aws_spot_instance_request.cwagent,
     null_resource.mount_efs
   ]
 }

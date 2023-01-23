@@ -153,6 +153,8 @@ Outputs:
         "ec2:DescribeVpcs",
         "ec2:GetPasswordData",
         "ec2:ModifyInstanceAttribute",
+        "ec2:RequestSpotInstances",
+        "ec2:DescribeSpotInstanceRequests",
         "elasticfilesystem:CreateFileSystem",
         "elasticfilesystem:CreateMountTarget",
         "elasticfilesystem:DeleteFileSystem",
