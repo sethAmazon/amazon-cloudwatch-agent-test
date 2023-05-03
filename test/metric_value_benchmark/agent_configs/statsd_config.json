@@ -1,4 +1,7 @@
 {
+    "agent": {
+        "debug": true,
+    },
     "metrics": {
         "namespace": "MetricValueBenchmarkTest",
         "append_dimensions": {

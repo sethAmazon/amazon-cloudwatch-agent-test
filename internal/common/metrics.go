@@ -152,6 +152,9 @@ func SendStatsdMetrics(metricPerInterval int, metricDimension []string, sendingI
 		if err := client.Gauge(fmt.Sprint("gauge_", t), float64(t), metricDimension, 1.0); err != nil {
 			return err
 		}
+		if err := client.Timing(fmt.Sprint("timing_", t), time.Duration(t), metricDimension, 1.0); err != nil {
+			return err
+		}
 	}
 
 	for {
@@ -160,6 +163,7 @@ func SendStatsdMetrics(metricPerInterval int, metricDimension []string, sendingI
 			for t := 1; t <= metricPerInterval/2; t++ {
 				client.Count(fmt.Sprint("counter_", t), int64(t), metricDimension, 1.0)
 				client.Gauge(fmt.Sprint("gauge_", t), float64(t), metricDimension, 1.0)
+				client.Timing(fmt.Sprint("timing_", t), time.Duration(t), metricDimension, 1.0)
 			}
 		case <-endTimeout:
 			return nil
