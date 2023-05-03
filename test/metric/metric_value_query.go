@@ -65,7 +65,8 @@ func (n *MetricValueFetcher) Fetch(namespace, metricName string, metricSpecificD
 
 	output, err := awsservice.CwmClient.GetMetricData(context.Background(), &getMetricDataInput)
 	if err != nil {
-		return nil, fmt.Errorf("Error getting metric data %v", err)
+		log.Printf("error getting metric data: %v", err)
+		return nil, fmt.Errorf("error getting metric data: %v", err)
 	}
 
 	result := output.MetricDataResults[0].Values
