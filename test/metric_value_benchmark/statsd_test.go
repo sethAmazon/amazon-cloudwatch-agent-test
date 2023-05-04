@@ -53,7 +53,7 @@ func (t *StatsdTestRunner) SetupAfterAgentRun() error {
 }
 
 func (t *StatsdTestRunner) GetMeasuredMetrics() []string {
-	return []string{"statsd_counter_1", "statsd_gauge_1"}
+	return []string{"statsd_counter_1", "statsd_gauge_1", "statsd_timing_1"}
 }
 
 func (t *StatsdTestRunner) validateStatsdMetric(metricName string) status.TestResult {
@@ -83,6 +83,12 @@ func (t *StatsdTestRunner) validateStatsdMetric(metricName string) status.TestRe
 			// CWA adds this metric_type dimension.
 			Key:   "metric_type",
 			Value: dimension.ExpectedDimensionValue{Value: aws.String("gauge")},
+		})
+	case "statsd_timing_1":
+		instructions = append(instructions, dimension.Instruction{
+			// CWA adds this metric_type dimension.
+			Key:   "metric_type",
+			Value: dimension.ExpectedDimensionValue{Value: aws.String("timing")},
 		})
 	}
 
@@ -119,6 +125,10 @@ func (t *StatsdTestRunner) validateStatsdMetric(metricName string) status.TestRe
 		}
 	case "statsd_gauge_1":
 		if !isAllValuesGreaterThanOrEqualToExpectedValue(metricName, values, 1) {
+			return testResult
+		}
+	case "statsd_timing_1":
+		if !isAllValuesGreaterThanOrEqualToExpectedValue(metricName, values, 0.000001) {
 			return testResult
 		}
 	}

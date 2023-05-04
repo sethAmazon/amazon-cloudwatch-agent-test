@@ -152,7 +152,7 @@ func SendStatsdMetrics(metricPerInterval int, metricDimension []string, sendingI
 		if err := client.Gauge(fmt.Sprint("gauge_", t), float64(t), metricDimension, 1.0); err != nil {
 			return err
 		}
-		if err := client.Timing(fmt.Sprint("timing_", t), time.Duration(t)*time.Second, metricDimension, 1.0); err != nil {
+		if err := client.Timing(fmt.Sprint("timing_", t), time.Duration(t), metricDimension, 1.0); err != nil {
 			return err
 		}
 	}
