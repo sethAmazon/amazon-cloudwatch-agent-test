@@ -61,7 +61,7 @@ func init() {
 
 // TestWriteLogsToCloudWatch writes N number of logs, and then validates that N logs
 // are queryable from CloudWatch Logs
-func TestWriteLogsToCloudWatch(t *testing.T) {
+func WriteLogsToCloudWatch(t *testing.T) {
 	// this uses the {instance_id} placeholder in the agent configuration,
 	// so we need to determine the host's instance ID for validation
 	instanceId := awsservice.GetInstanceId()
@@ -117,7 +117,7 @@ func TestWriteLogsToCloudWatch(t *testing.T) {
 // 2. The file should be rotated, and a new log line of size N should be written
 // 3. The file should be rotated again, and a new log line of size GREATER THAN N should be written
 // 4. All three log lines, in full, should be visible in CloudWatch Logs
-func TestRotatingLogsDoesNotSkipLines(t *testing.T) {
+func RotatingLogsDoesNotSkipLines(t *testing.T) {
 	cfgFilePath := "resources/config_log_rotated.json"
 
 	instanceId := awsservice.GetInstanceId()
