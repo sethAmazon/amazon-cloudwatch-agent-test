@@ -4,6 +4,32 @@
     "debug": true,
     "max_cloudwatch_logs_buffer": 1000000
   },
+  "metrics": {
+    "namespace": "LogBufferTest",
+    "append_dimensions": {
+      "InstanceId": "${aws:InstanceId}"
+    },
+    "metrics_collected": {
+      "procstat": [
+        {
+          "exe": "cloudwatch-agent",
+          "measurement": [
+            "cpu_time_system",
+            "cpu_time_user",
+            "cpu_usage",
+            "memory_data",
+            "memory_locked",
+            "memory_rss",
+            "memory_stack",
+            "memory_swap",
+            "memory_vms"
+          ],
+          "metrics_collection_interval": 10
+        }
+      ]
+    },
+    "force_flush_interval": 5
+  },
   "logs": {
     "logs_collected": {
       "files": {
