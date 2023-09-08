@@ -21,7 +21,7 @@ func main() {
 
 	var flip bool
 	for {
-		i := -1.1
+		i := -1.1 * float64(rand.Intn(5))
 		if flip {
 			i = i * -1
 		}
