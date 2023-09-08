@@ -22,7 +22,7 @@ func main() {
 		_ = client.Write(context.Background(), &api.ValueList{
 			Identifier: api.Identifier{
 				Host:   exec.Hostname(),
-				Plugin: fmt.Sprint("gauge_", 1),
+				Plugin: fmt.Sprint("seth_test_gauge_", 1),
 				Type:   "gauge",
 			},
 			Time:     time.Now(),
@@ -33,7 +33,7 @@ func main() {
 		_ = client.Write(context.Background(), &api.ValueList{
 			Identifier: api.Identifier{
 				Host:   exec.Hostname(),
-				Plugin: fmt.Sprint("counter_", 1),
+				Plugin: fmt.Sprint("seth_test_counter_", 1),
 				Type:   "counter",
 			},
 			Time:     time.Now(),
