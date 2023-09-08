@@ -6,6 +6,7 @@ import (
 	"collectd.org/network"
 	"context"
 	"fmt"
+	"math/rand"
 	"net"
 	"time"
 )
@@ -45,6 +46,6 @@ func main() {
 			_ = client.Flush()
 		}
 		flip = !flip
-		time.Sleep(time.Second)
+		time.Sleep(time.Millisecond * time.Duration(rand.Intn(100)))
 	}
 }
