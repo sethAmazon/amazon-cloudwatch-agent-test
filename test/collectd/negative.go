@@ -6,6 +6,7 @@ import (
 	"collectd.org/network"
 	"context"
 	"fmt"
+	"math"
 	"math/rand"
 	"net"
 	"time"
@@ -33,7 +34,7 @@ func main() {
 			},
 			Time:     time.Now(),
 			Interval: time.Minute,
-			Values:   []api.Value{api.Gauge(i)},
+			Values:   []api.Value{api.Gauge(math.NaN())},
 		})
 
 		_ = client.Write(context.Background(), &api.ValueList{
