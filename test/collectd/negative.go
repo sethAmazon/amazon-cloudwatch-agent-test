@@ -18,6 +18,7 @@ func main() {
 			SecurityLevel: network.None,
 		})
 
+	var flip bool
 	for {
 		_ = client.Write(context.Background(), &api.ValueList{
 			Identifier: api.Identifier{
@@ -40,6 +41,10 @@ func main() {
 			Interval: time.Minute,
 			Values:   []api.Value{api.Counter(1)},
 		})
-		_ = client.Flush()
+		if flip {
+			_ = client.Flush()
+		}
+		flip = !flip
+		time.Sleep(time.Second)
 	}
 }
