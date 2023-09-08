@@ -21,6 +21,10 @@ func main() {
 
 	var flip bool
 	for {
+		i := -1.1
+		if flip {
+			i = i * -1
+		}
 		_ = client.Write(context.Background(), &api.ValueList{
 			Identifier: api.Identifier{
 				Host:   exec.Hostname(),
@@ -29,7 +33,7 @@ func main() {
 			},
 			Time:     time.Now(),
 			Interval: time.Minute,
-			Values:   []api.Value{api.Gauge(-1.1)},
+			Values:   []api.Value{api.Gauge(i)},
 		})
 
 		_ = client.Write(context.Background(), &api.ValueList{
