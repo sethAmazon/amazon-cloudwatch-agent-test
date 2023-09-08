@@ -38,7 +38,7 @@ func main() {
 			},
 			Time:     time.Now(),
 			Interval: time.Minute,
-			Values:   []api.Value{api.Counter(-1)},
+			Values:   []api.Value{api.Counter(1)},
 		})
 		_ = client.Flush()
 	}
